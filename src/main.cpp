@@ -77,19 +77,24 @@ void autonomous() {}
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+pros::MotorGroup left_motors({-11, 12, -13});
+pros::MotorGroup right_motors({18, -19, 20});
 void opcontrol()
 {
-	auto timer = time(NULL);
+	left_motors.move(20);
+	// auto timer = time(NULL);
 	while (true)
 	{
 
-		printf("TIME delta %d", time(&timer));
+		// printf("TIME delta %d", time(&timer));
 		readit(); // Read from the serial port
 
 		pros::lcd::print(0, "%f %f %f", serial_data.x,
 						 serial_data.y,
 						 serial_data.h); // Prints status of the emulated screen LCDs
 		// 																	// Run for 20 ms then update
+		right_motors.move(serial_data.x);
+		left_motors.move(serial_data.y);
 		pros::delay(10);
 	}
 }
