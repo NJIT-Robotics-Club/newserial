@@ -9,5 +9,13 @@
 PB_BIND(DataMessage, DataMessage, AUTO)
 
 
+PB_BIND(btoj, btoj, AUTO)
 
-    
+
+PB_BIND(controllerState, controllerState, AUTO)
+
+
+PB_BIND(jtob, jtob, AUTO)
+
+
+

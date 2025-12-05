@@ -1,7 +1,5 @@
 #include "serial_read.h"
 #include "Nanopb/pb_decode.h"
-static pros::Serial serial_port2(3, 115200U);
-static FILE *serial_port = std::fopen("/dev/3", "r");
 uint8_t buffer[255];
 uint8_t bytes_read = 0;
 uint8_t curr;

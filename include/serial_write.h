@@ -7,6 +7,6 @@
 #include <vector>
 using namespace std;
 
-extern DataMessage serial_data;
+extern btoj btoj_data;
 
-void readit();
+void writeit();

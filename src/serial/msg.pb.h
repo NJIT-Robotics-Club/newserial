@@ -25,6 +25,34 @@ typedef struct _DataMessage {
     uint32_t by;
 } DataMessage;
 
+typedef struct _controllerState {
+    float left_stick_x;
+    float left_stick_y;
+    float right_stick_x;
+    float right_stick_y;
+    bool a_button;
+    bool b_button;
+    bool x_button;
+    bool y_button;
+    bool left_bumper;
+    bool right_bumper;
+    bool back_button;
+    bool start_button;
+    bool l1_button;
+    bool r1_button;
+    bool l2_button;
+    bool r2_button;
+} controllerState;
+
+typedef struct _btoj {
+    bool has_controller_state;
+    controllerState controller_state;
+} btoj;
+
+typedef struct _jtob {
+    char dummy_field;
+} jtob;
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,7 +60,13 @@ extern "C" {
 
 /* Initializer values for message structs */
 #define DataMessage_init_default                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+#define btoj_init_default                        {false, controllerState_init_default}
+#define controllerState_init_default             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+#define jtob_init_default                        {0}
 #define DataMessage_init_zero                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+#define btoj_init_zero                           {false, controllerState_init_zero}
+#define controllerState_init_zero                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+#define jtob_init_zero                           {0}
 
 /* Field tags (for use in manual encoding/decoding) */
 #define DataMessage_encoder_one_tag              1
@@ -47,6 +81,23 @@ extern "C" {
 #define DataMessage_ry_tag                       10
 #define DataMessage_bx_tag                       11
 #define DataMessage_by_tag                       12
+#define controllerState_left_stick_x_tag         1
+#define controllerState_left_stick_y_tag         2
+#define controllerState_right_stick_x_tag        3
+#define controllerState_right_stick_y_tag        4
+#define controllerState_a_button_tag             7
+#define controllerState_b_button_tag             8
+#define controllerState_x_button_tag             9
+#define controllerState_y_button_tag             10
+#define controllerState_left_bumper_tag          11
+#define controllerState_right_bumper_tag         12
+#define controllerState_back_button_tag          13
+#define controllerState_start_button_tag         14
+#define controllerState_l1_button_tag            15
+#define controllerState_r1_button_tag            16
+#define controllerState_l2_button_tag            17
+#define controllerState_r2_button_tag            18
+#define btoj_controller_state_tag                1
 
 /* Struct field encoding specification for nanopb */
 #define DataMessage_FIELDLIST(X, a) \
@@ -65,14 +116,54 @@ X(a, STATIC,   SINGULAR, UINT32,   by,               12)
 #define DataMessage_CALLBACK NULL
 #define DataMessage_DEFAULT NULL
 
+#define btoj_FIELDLIST(X, a) \
+X(a, STATIC,   OPTIONAL, MESSAGE,  controller_state,   1)
+#define btoj_CALLBACK NULL
+#define btoj_DEFAULT NULL
+#define btoj_controller_state_MSGTYPE controllerState
+
+#define controllerState_FIELDLIST(X, a) \
+X(a, STATIC,   SINGULAR, FLOAT,    left_stick_x,      1) \
+X(a, STATIC,   SINGULAR, FLOAT,    left_stick_y,      2) \
+X(a, STATIC,   SINGULAR, FLOAT,    right_stick_x,     3) \
+X(a, STATIC,   SINGULAR, FLOAT,    right_stick_y,     4) \
+X(a, STATIC,   SINGULAR, BOOL,     a_button,          7) \
+X(a, STATIC,   SINGULAR, BOOL,     b_button,          8) \
+X(a, STATIC,   SINGULAR, BOOL,     x_button,          9) \
+X(a, STATIC,   SINGULAR, BOOL,     y_button,         10) \
+X(a, STATIC,   SINGULAR, BOOL,     left_bumper,      11) \
+X(a, STATIC,   SINGULAR, BOOL,     right_bumper,     12) \
+X(a, STATIC,   SINGULAR, BOOL,     back_button,      13) \
+X(a, STATIC,   SINGULAR, BOOL,     start_button,     14) \
+X(a, STATIC,   SINGULAR, BOOL,     l1_button,        15) \
+X(a, STATIC,   SINGULAR, BOOL,     r1_button,        16) \
+X(a, STATIC,   SINGULAR, BOOL,     l2_button,        17) \
+X(a, STATIC,   SINGULAR, BOOL,     r2_button,        18)
+#define controllerState_CALLBACK NULL
+#define controllerState_DEFAULT NULL
+
+#define jtob_FIELDLIST(X, a) \
+
+#define jtob_CALLBACK NULL
+#define jtob_DEFAULT NULL
+
 extern const pb_msgdesc_t DataMessage_msg;
+extern const pb_msgdesc_t btoj_msg;
+extern const pb_msgdesc_t controllerState_msg;
+extern const pb_msgdesc_t jtob_msg;
 
 /* Defines for backwards compatibility with code written before nanopb-0.4.0 */
 #define DataMessage_fields &DataMessage_msg
+#define btoj_fields &btoj_msg
+#define controllerState_fields &controllerState_msg
+#define jtob_fields &jtob_msg
 
 /* Maximum encoded size of messages (where known) */
 #define DataMessage_size                         61
 #define SRC_MSG_PB_H_MAX_SIZE                    DataMessage_size
+#define btoj_size                                49
+#define controllerState_size                     47
+#define jtob_size                                0
 
 #ifdef __cplusplus
 } /* extern "C" */
